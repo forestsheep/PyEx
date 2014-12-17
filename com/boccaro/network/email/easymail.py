@@ -15,28 +15,37 @@ def sendMailTest():
     e.mail_user = "forestsheep"  # 用户名
     e.mail_pass = "xxx"  # 口令 
     e.mail_postfix = "163.com"  # 发件箱的后缀
+    e.mail_subject = "subject"
     e.mail_context = 'abcdefghijklmnopqrstuvwxyz'
     e.send()
 
 class EasyMail(object):
     mailto_list = None
     mail_host = None
-    mail_user = None
-    mail_pass = None
-    mail_postfix = None
-    mail_context = None
+    mail_sender_name = None
+    mail_user = ''
+    mail_pass = ''
+    mail_postfix = ''
+    mail_subject = ''
+    mail_context = ''
 
     def __init__(self):
         pass
     
     def send(self):
-        if self.send_mail(self.mailto_list, "hello", self.mail_context):
-            print 'successed'
+        if self.send_mail(self.mailto_list, self.mail_subject, self.mail_context):
+            print 'mail send successed'
         else:
-            print 'failed'
+            print 'mail send failed'
         
     def send_mail(self, to_list, sub, content):
-        me = "hello" + "<" + self.mail_user + "@" + self.mail_postfix + ">"
+        me = ''
+        if "@" in self.mail_user:
+            me = self.mail_user
+        else:
+            me = self.mail_user + "@" + self.mail_postfix
+        if not self.mail_sender_name is None:
+            me = self.mail_sender_name + "<" + me +">"
         msg = MIMEText(content, _subtype='plain', _charset='utf-8')
         msg['Subject'] = sub
         msg['From'] = me
