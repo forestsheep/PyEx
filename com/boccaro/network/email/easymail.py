@@ -46,7 +46,7 @@ class EasyMail(object):
         else:
             me = self.mail_user + "@" + self.mail_postfix
         if not self.mail_sender_name is None:
-            me =  ("%s<forestsheep@163.com>") % (Header(self.mail_sender_name,'utf-8'),)
+            me =  ("%s<" + me + ">") % (Header(self.mail_sender_name,'utf-8'),)
         msg = MIMEText(content, _subtype='plain', _charset='utf-8')
         msg['Subject'] = sub
         msg['From'] = me
