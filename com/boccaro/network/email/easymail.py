@@ -6,6 +6,7 @@ Created on 2014-9-25
 '''
 import smtplib
 from email.mime.text import MIMEText
+from email.header import Header
 
 
 def sendMailTest():
@@ -45,7 +46,7 @@ class EasyMail(object):
         else:
             me = self.mail_user + "@" + self.mail_postfix
         if not self.mail_sender_name is None:
-            me = self.mail_sender_name + "<" + me +">"
+            me =  ("%s<forestsheep@163.com>") % (Header(self.mail_sender_name,'utf-8'),)
         msg = MIMEText(content, _subtype='plain', _charset='utf-8')
         msg['Subject'] = sub
         msg['From'] = me
